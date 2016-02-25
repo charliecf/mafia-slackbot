@@ -7,28 +7,49 @@ Characters:
 """
 
 # Class for Townie
-"""
-Welcome, [Player Name], you are a Vanilla Townie.
+class Townie(object):
+	"""
+	Welcome, [Player Name], you are a Vanilla Townie.
 
-Abilities:
-- Your weapon is your vote, you have no night actions.
+	Abilities:
+	- Your weapon is your vote, you have no night actions.
 
-Win Condition:
-- You win when all threats to the town have been eliminated.
-"""
+	Win Condition:
+	- You win when all threats to the town have been eliminated.
+	"""
 
+	name = ""
+	slackId = ""
+	slackChannel = ""
+	isAlive = True
+
+	def __init__(self, name, slackId, slackChannel):
+		self.name = name
+		self.slackId = slackId
+		self.slackChannel = slackChannel
 
 # Class for Mafia
-"""
-Welcome, [Player Name]. You are a Mafia Goon, along with your partner, [Partner Name].
+class MafiaGoon(object):
+	"""
+	Welcome, [Player Name]. You are a Mafia Goon, along with your partner, [Partner Name].
 
-Abilities:
-- Factional Communication: During the night phase you may talk with your partner here
-- Factional kill: Each night phase, one of you or your partner may perform the factional kill.
+	Abilities:
+	- Factional Communication: During the night phase you may talk with your partner here
+	- Factional kill: Each night phase, one of you or your partner may perform the factional kill.
 
-Win Condition:
-- You win when all members of the town have been eliminated or nothing can prevent this from occuring.
-"""
+	Win Condition:
+	- You win when all members of the town have been eliminated or nothing can prevent this from occuring.
+	"""
+
+	name = ""
+	slackId = ""
+	slackChannel = ""
+	isAlive = True
+
+	def __init__(self, name, slackId, slackChannel):
+		self.name = name
+		self.slackId = slackId
+		self.slackChannel = slackChannel
 
 
 # Class for Cop

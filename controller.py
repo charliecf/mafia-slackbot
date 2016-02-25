@@ -15,19 +15,25 @@ Functions in these category should require both player input as well as
 changing backend data
 """
 
-# Join Game Function
+# Initialize Game
+def startGame():
+	
+	return None
 
 # DayTime Object
+def dayTime():
+	## Voting
 
-## Voting
-
-## Communication
+	## Communication
+	return None	
 
 # NightTime Object
+def nightTime():
+	## Mafia Killing
 
-## Mafia Killing
+	## Communication between Mafia
+	return None
 
-## Communication between Mafia
 
 # ----------------------------------------------
 # ---------- controller functions end ----------
