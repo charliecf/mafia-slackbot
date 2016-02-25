@@ -21,12 +21,16 @@ class Townie(object):
 	name = ""
 	slackId = ""
 	slackChannel = ""
+	role = 'Townie'
 	isAlive = True
 
 	def __init__(self, name, slackId, slackChannel):
 		self.name = name
 		self.slackId = slackId
 		self.slackChannel = slackChannel
+
+	def vote():
+		print "I VOTE!"
 
 # Class for Mafia
 class MafiaGoon(object):
@@ -44,6 +48,7 @@ class MafiaGoon(object):
 	name = ""
 	slackId = ""
 	slackChannel = ""
+	role = 'Mafia Goon'
 	isAlive = True
 
 	def __init__(self, name, slackId, slackChannel):
@@ -51,6 +56,8 @@ class MafiaGoon(object):
 		self.slackId = slackId
 		self.slackChannel = slackChannel
 
+	def kill():
+		print "KILL HIM!"
 
 # Class for Cop
 """

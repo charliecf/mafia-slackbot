@@ -1,5 +1,6 @@
 import mafiaModel, slackView
 
+import random
 """
 C9 Variation
 http://wiki.mafiascum.net/index.php?title=C9
@@ -18,23 +19,9 @@ changing backend data
 # Initialize Game
 def startGame():
 	## Assign Roles
-
+	player = Townie(self, name, slackId, slackChannel)
 	## Explain Rules
-	
-	return None
 
-# DayTime Object
-def dayTime():
-	## Voting
-
-	## Communication
-	return None	
-
-# NightTime Object
-def nightTime():
-	## Mafia Killing
-
-	## Communication between Mafia
 	return None
 
 
@@ -52,4 +39,16 @@ newGamePlayersName = ['Player1', 'Player2', 'Player3', 'Player4', 'Player5', 'Pl
 if len(newGamePlayersName) != 7:
 	print "Too many players or too few!"
 	exit()
+
+
+# Initialize Game
+day = "Day"
+# Start Game
+while True:	
+	## Day
+	print "Day"
+
+
+	## Night
+	print "Night"
 
