@@ -17,6 +17,9 @@ changing backend data
 
 # Initialize Game
 def startGame():
+	## Assign Roles
+
+	## Explain Rules
 	
 	return None
 
@@ -42,3 +45,11 @@ def nightTime():
 # Testing
 # 7 Dummy Players
 # This is strictly temporary
+newGamePlayersName = ['Player1', 'Player2', 'Player3', 'Player4', 'Player5', 'Player6', 'Player7']
+
+
+# Exit game if not enough players or too many
+if len(newGamePlayersName) != 7:
+	print "Too many players or too few!"
+	exit()
+
