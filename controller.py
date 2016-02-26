@@ -16,18 +16,44 @@ Functions in these category should require both player input as well as
 changing backend data
 """
 
+def shuffleRoles(roles):
+    shuffledRoles = []
+    for i in range(len(roles)):
+        element = random.choice(roles)
+        roles.remove(element)
+        shuffledRoles.append(element)
+    return shuffledRoles
+
+def makePlayer(role, name, slackId, slackChannel):
+	if role == "MafiaGoon":
+		player = mafiaModel.MafiaGoon(name, slackId, slackChannel)
+	if role == "Townie":
+		player = mafiaModel.Townie(name, slackId, slackChannel)
+
+	return player
+
 # Initialize Game
-def startGame():
+def startGame(newGamePlayersName, gameSetup):
 	## Assign Roles
 	## Game Mode
-	gameSetup = ["MafiaGoons", "MafiaGoons", "Townie", "Townie", "Townie", "Townie", "Townie"]
+	players = {}
+	gameSetupCounter = 0
+	for player in newGamePlayersName:
+	    players[player] = makePlayer(gameSetup[gameSetupCounter], 
+	        player, "slackId", "slackChannel")
+	    gameSetupCounter += 1
 
-	player = Townie(self, name, slackId, slackChannel)
-	
+	for player in players:
+	    selfIdentification(players[player])
+
 	## Explain Rules
+	gameRuleIntro = """
+	Explaining rules...
+	"""
+	print gameRuleIntro
 
-	return None
-
+def selfIdentification(player):
+	print "%s is a %s" % (player.name, player.role)
 
 # ----------------------------------------------
 # ---------- controller functions end ----------
@@ -38,12 +64,18 @@ def startGame():
 # This is strictly temporary
 newGamePlayersName = ['Player1', 'Player2', 'Player3', 'Player4', 'Player5', 'Player6', 'Player7']
 
+gameSetup = ["MafiaGoon", "MafiaGoon", "Townie", "Townie", "Townie", "Townie", "Townie"]
+gameSetup = shuffleRoles(gameSetup)
+print gameSetup
 
 # Exit game if not enough players or too many
 if len(newGamePlayersName) != 7:
 	print "Too many players or too few!"
 	exit()
 
+startGame(newGamePlayersName, gameSetup)
+
+# breakLine = raw_input("> ")
 
 # Initialize Game
 day = "Day"
@@ -51,7 +83,7 @@ day = "Day"
 while True:	
 	## Day
 	print "Day"
-
+	vote = raw_input("How do you vote? >")
 
 	## Night
 	print "Night"
