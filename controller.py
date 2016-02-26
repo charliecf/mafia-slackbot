@@ -19,7 +19,11 @@ changing backend data
 # Initialize Game
 def startGame():
 	## Assign Roles
+	## Game Mode
+	gameSetup = ["MafiaGoons", "MafiaGoons", "Townie", "Townie", "Townie", "Townie", "Townie"]
+
 	player = Townie(self, name, slackId, slackChannel)
+	
 	## Explain Rules
 
 	return None
