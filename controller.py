@@ -51,6 +51,7 @@ def startGame(newGamePlayersName, gameSetup):
 	Explaining rules...
 	"""
 	print gameRuleIntro
+	return players # so that the object dictionary of players in game is created
 
 def selfIdentification(player):
 	print "%s is a %s" % (player.name, player.role)
@@ -58,6 +59,8 @@ def selfIdentification(player):
 # ----------------------------------------------
 # ---------- controller functions end ----------
 # ----------------------------------------------
+
+print "-----------------------------------------"
 
 # Testing
 # 7 Dummy Players
@@ -73,7 +76,10 @@ if len(newGamePlayersName) != 7:
 	print "Too many players or too few!"
 	exit()
 
-startGame(newGamePlayersName, gameSetup)
+players = startGame(newGamePlayersName, gameSetup)
+
+for player in players:
+	print players[player].isAlive
 
 # breakLine = raw_input("> ")
 
@@ -83,8 +89,35 @@ day = "Day"
 while True:	
 	## Day
 	print "Day"
-	vote = raw_input("How do you vote? >")
+	playerVotes = {}
+	print playerVotes
+	while True:
+		# Check and print players who has not voted yet
+		vote = raw_input("How do you vote? > ")
+		if "vote lynch:" in vote:
+			# Identify who it is:
+			playerName = raw_input("Who are you? > ")
+			# If voted already, change vote
+			# If not voted yet, new vote and put in dictionary
+			voteLynch = vote.replace("vote lynch: ", "")
+			playerVotes[playerName] = voteLynch
+			print playerVotes
+			if len(playerVotes) == 3: # change to 7 later
+				print "voting complete!"
+				break
 
 	## Night
 	print "Night"
+	print "Night time, only Mafia Goons may communicate to each another"
+	# Enable communication between Mafia Goons
+	# Allow Mafia Goon to Kill
+	while True:
+		vote = raw_input("How do you kill... Mr. Mafia? > ")
+		if "vote kill:" in vote:
+			voteKill = vote.replace("vote kill: ", "")
+			print "Are you sure to kill", voteKill, "?"
+			break
 
+	print "Check Winning Condition"
+	for player in players:
+		print players[player].isAlive

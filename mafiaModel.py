@@ -22,6 +22,7 @@ class Townie(object):
 	slackId = ""
 	slackChannel = ""
 	role = 'Townie'
+	voteToken = True
 	isAlive = True
 
 	def __init__(self, name, slackId, slackChannel):
@@ -49,6 +50,7 @@ class MafiaGoon(object):
 	slackId = ""
 	slackChannel = ""
 	role = 'Mafia Goon'
+	voteToken = True
 	isAlive = True
 
 	def __init__(self, name, slackId, slackChannel):
