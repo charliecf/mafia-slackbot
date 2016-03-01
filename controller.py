@@ -1,4 +1,5 @@
-import mafiaModel, slackView
+import mafiaModel
+from slackView import *
 
 import random
 """
@@ -88,7 +89,7 @@ day = "Day"
 # Start Game
 while True:	
 	## Day
-	print "Day"
+	postMessage(groupChannel, "Day Time")
 	playerVotes = {}
 	print playerVotes
 	while True:

@@ -3,10 +3,10 @@ import pprint
 import json
 from slackclient import SlackClient
 
-token = "xoxb-22371870822-R4NMrSgKKyldo4xJj7nQNM4F" # Random Projects -- will need to change in the future
+token = "xoxb-23437957687-5LFDOjqKfvLhZKokld8DrWj3" # mafia-don
 sc = SlackClient(token)
 
-groupChannel = "C0NCQ4K4K"
+groupChannel = "C0NTM5607" # Mafia-Group
 
 def compileUserListDic():
 	userListDic = {}
