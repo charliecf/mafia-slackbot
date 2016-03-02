@@ -85,19 +85,24 @@ for player in players:
 # breakLine = raw_input("> ")
 
 # Initialize Game
-day = "Day"
 # Start Game
 while True:	
 	## Day
 	postMessage(groupChannel, "Day Time")
 	playerVotes = {}
 	print playerVotes
+	postMessage(groupChannel, "How do you vote?")
 	while True:
 		# Check and print players who has not voted yet
-		vote = raw_input("How do you vote? > ")
+		vote = getUserInput(groupChannel)
+		print vote[0]
+		print vote[1]
 		if "vote lynch:" in vote:
 			# Identify who it is:
+			print vote[0]
+			print vote[1]
 			playerName = raw_input("Who are you? > ")
+
 			# If voted already, change vote
 			# If not voted yet, new vote and put in dictionary
 			voteLynch = vote.replace("vote lynch: ", "")

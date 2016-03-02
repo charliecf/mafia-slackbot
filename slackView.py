@@ -33,7 +33,8 @@ def getUserInput(channel):
 	        if "type" in evt:
 	            if evt["type"] == "message" and "text" in evt and evt["channel"] == channel:
 	                message = evt["text"]
-	                return message
+	                user = evt["user"]
+	                return message, user
 	    time.sleep(1)
 
 def getUserInputTimeout(channel, timeout):
