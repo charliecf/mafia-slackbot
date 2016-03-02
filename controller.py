@@ -36,6 +36,12 @@ def makePlayer(role, name, slackId, slackChannel):
 def selfIdentification(player):
 	print "%s is a %s" % (player.name, player.role)
 
+def getPlayerFromSlackId(players, slackId):
+    for player in players:
+        if players[player].slackId == slackId:
+            return players[player]
+    return None
+
 # ----------------------------------------------
 # ---------- controller functions end ----------
 # ----------------------------------------------
@@ -72,8 +78,6 @@ while timeoutTimer < 30:
 print newGamePlayersName
 print newGamePlayersId
 
-fdsfbreak = raw_input()
-
 # Exit game if not enough players or too many
 if len(newGamePlayersId) < 2: # Change this to != 7 later
     postMessage(groupChannel, "Too many players or too few!")
@@ -95,6 +99,8 @@ for player in newGamePlayersId:
         userListDic[player][0], player, userListDic[player][2])
     gameSetupCounter += 1
 
+# name, slackId, slackChannel (DM)
+
 for player in players:
     selfIdentification(players[player])
 
@@ -104,9 +110,6 @@ Explaining rules...
 """
 print gameRuleIntro
 postMessage(groupChannel, gameRuleIntro)
-return players # so that the object dictionary of players in game is created
-
-
 print players
 
 for player in players:
@@ -131,17 +134,15 @@ while True:
 		print vote[1]
 		if "vote lynch:" in vote[0]:
 			# Identify who it is:
-			vote[1]
+			voteUser = getPlayerFromSlackId(players, vote[1])
 
 			# If voted already, change vote
 			# If not voted yet, new vote and put in dictionary
-			postMessage(groupChannel, "HELLO!")
-			print playerVotes
 			voteLynch = vote[0].replace("vote lynch: ", "")
 			print voteLynch
 
-			playerVotes[1] = voteLynch
-			# print playerVotes
+			playerVotes[voteUser.name] = voteLynch
+			print playerVotes
 			postMessage(groupChannel, playerVotes)
 			playerNamefsd = raw_input("Who are you? > ")
 
