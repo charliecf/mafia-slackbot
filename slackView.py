@@ -8,6 +8,10 @@ sc = SlackClient(token)
 
 groupChannel = "C0NTM5607" # Mafia-Group
 
+print sc.api_call("api.test")
+usersList = json.loads(sc.api_call("users.list"))['members']
+imList = json.loads(sc.api_call("im.list"))['ims']
+
 def compileUserListDic():
 	userListDic = {}
 	for user in usersList:

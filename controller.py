@@ -33,27 +33,6 @@ def makePlayer(role, name, slackId, slackChannel):
 
 	return player
 
-# Initialize Game
-def startGame(newGamePlayersName, gameSetup):
-	## Assign Roles
-	## Game Mode
-	players = {}
-	gameSetupCounter = 0
-	for player in newGamePlayersName:
-	    players[player] = makePlayer(gameSetup[gameSetupCounter], 
-	        player, "slackId", "slackChannel")
-	    gameSetupCounter += 1
-
-	for player in players:
-	    selfIdentification(players[player])
-
-	## Explain Rules
-	gameRuleIntro = """
-	Explaining rules...
-	"""
-	print gameRuleIntro
-	return players # so that the object dictionary of players in game is created
-
 def selfIdentification(player):
 	print "%s is a %s" % (player.name, player.role)
 
@@ -61,23 +40,74 @@ def selfIdentification(player):
 # ---------- controller functions end ----------
 # ----------------------------------------------
 
+postMessage(groupChannel, "-----------------------------------------")
+postMessage(groupChannel, "Welcome kids...")
+postMessage(groupChannel, "I'm the don :ok_hand:, so follow my instructions to the tee, cause I ain't repeating myself...")
 print "-----------------------------------------"
+# How many players?
+userListDic = compileUserListDic()
 
-# Testing
-# 7 Dummy Players
-# This is strictly temporary
-newGamePlayersName = ['Player1', 'Player2', 'Player3', 'Player4', 'Player5', 'Player6', 'Player7']
+postMessage(groupChannel, "Who's in? Type 'join game'")
+newGamePlayersId = []
+newGamePlayersName = []
+timeoutTimer = 0
+sc.rtm_connect()
+while timeoutTimer < 30:
+    new_evts = sc.rtm_read()
+    for evt in new_evts:
+        print(evt)
+        if "type" in evt:
+            if evt["type"] == "message" and "text" in evt and evt["channel"] == groupChannel:
+                message = evt["text"]
+                user = evt["user"]
+                if message == 'join game':                
+                    newGamePlayersId.append(user)
+                    postMessage(groupChannel, "%s successfully joined" % userListDic[user][0])
+                    newGamePlayersName.append(userListDic[user][0])
+                    print sc.api_call("im.open", user=user)
+                print newGamePlayersId
+    time.sleep(1)
+    timeoutTimer += 1
 
+print newGamePlayersName
+print newGamePlayersId
+
+fdsfbreak = raw_input()
+
+# Exit game if not enough players or too many
+if len(newGamePlayersId) < 2: # Change this to != 7 later
+    postMessage(groupChannel, "Too many players or too few!")
+    exit()
+
+postMessage(groupChannel, "Starting a new game with: %s" % newGamePlayersName)
+
+# C9 - Proper Setup
+# gameSetup = ["MafiaGoon", "MafiaGoon", "Townie", "Townie", "Townie", "Townie", "Townie"]
 gameSetup = ["MafiaGoon", "MafiaGoon", "Townie", "Townie", "Townie", "Townie", "Townie"]
 gameSetup = shuffleRoles(gameSetup)
 print gameSetup
 
-# Exit game if not enough players or too many
-if len(newGamePlayersName) != 7:
-	print "Too many players or too few!"
-	exit()
+print userListDic
+players = {}
+gameSetupCounter = 0
+for player in newGamePlayersId:
+    players[userListDic[player][0]] = makePlayer(gameSetup[gameSetupCounter], 
+        userListDic[player][0], player, userListDic[player][2])
+    gameSetupCounter += 1
 
-players = startGame(newGamePlayersName, gameSetup)
+for player in players:
+    selfIdentification(players[player])
+
+## Explain Rules
+gameRuleIntro = """
+Explaining rules...
+"""
+print gameRuleIntro
+postMessage(groupChannel, gameRuleIntro)
+return players # so that the object dictionary of players in game is created
+
+
+print players
 
 for player in players:
 	print players[player].isAlive
@@ -85,7 +115,9 @@ for player in players:
 # breakLine = raw_input("> ")
 
 # Initialize Game
-# Start Game
+# Begin Game
+print "-----------------------------------------"
+postMessage(groupChannel, "-----------------------------------------")
 while True:	
 	## Day
 	postMessage(groupChannel, "Day Time")
@@ -97,17 +129,22 @@ while True:
 		vote = getUserInput(groupChannel)
 		print vote[0]
 		print vote[1]
-		if "vote lynch:" in vote:
+		if "vote lynch:" in vote[0]:
 			# Identify who it is:
-			print vote[0]
-			print vote[1]
-			playerName = raw_input("Who are you? > ")
+			vote[1]
 
 			# If voted already, change vote
 			# If not voted yet, new vote and put in dictionary
-			voteLynch = vote.replace("vote lynch: ", "")
-			playerVotes[playerName] = voteLynch
+			postMessage(groupChannel, "HELLO!")
 			print playerVotes
+			voteLynch = vote[0].replace("vote lynch: ", "")
+			print voteLynch
+
+			playerVotes[1] = voteLynch
+			# print playerVotes
+			postMessage(groupChannel, playerVotes)
+			playerNamefsd = raw_input("Who are you? > ")
+
 			if len(playerVotes) == 3: # change to 7 later
 				print "voting complete!"
 				break
