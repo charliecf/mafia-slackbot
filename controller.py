@@ -146,13 +146,14 @@ while True:
 			postMessage(groupChannel, playerVotes)
 			playerNamefsd = raw_input("Who are you? > ")
 
-			if len(playerVotes) == 3: # change to 7 later
-				print "voting complete!"
+			if len(playerVotes) == 2: # change to 7 later
+				postMessage(groupChannel, "voting complete!")
+				# Kill lynched target
+				
 				break
 
 	## Night
-	print "Night"
-	print "Night time, only Mafia Goons may communicate to each another"
+	postMessage(groupChannel, "Night time, only Mafia Goons may communicate to each another")
 	# Enable communication between Mafia Goons
 	# Allow Mafia Goon to Kill
 	while True:
